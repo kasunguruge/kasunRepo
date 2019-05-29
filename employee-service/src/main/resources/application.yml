@@ -1,19 +1,14 @@
-
-server:
-  port: 9090
-
 spring:
-  
   datasource:
-    url: jdbc:mysql://localhost:3306/allocationDB?createDatabaseIfNotExist=true
-    password: 1qaz2wsx@
+    url: jdbc:mysql://localhost:3306/emsdb?createDatabaseIfNotExist=true
     username: root
+    password: 1qaz2wsx@
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: none
-
-
+    show-sql: true
+    
 
 security:
   oauth2:
@@ -22,3 +17,7 @@ security:
     client:
       client-id: web
       client-secret: web
+      
+
+server:
+  port: 8090

@@ -15,7 +15,7 @@ import lk.kasun.service.AllocationService;
 
 
 @RestController
-@RequestMapping(value = "/allocation")
+@RequestMapping(value = "/emscloud")
 public class AllocationController {
 
 	@Autowired

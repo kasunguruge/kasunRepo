@@ -1,4 +1,4 @@
-package lk.kasun;
+package com.kasun.oauth.example.authexample;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @SpringBootApplication
 @EnableAuthorizationServer
-public class AllocationApplication {
+public class AuthExampleApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AllocationApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AuthExampleApplication.class, args);
+    }
 
 }
