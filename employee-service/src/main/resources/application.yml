@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/emsdb?createDatabaseIfNotExist=true
     username: root
-    password: 1qaz2wsx@
+    password: en
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
@@ -13,7 +13,7 @@ spring:
 security:
   oauth2:
     resource:
-      token-info-uri: http://localhost:8182/oauth/check_token
+      token-info-uri: http://localhost:8191/oauth/check_token
     client:
       client-id: web
       client-secret: web

@@ -25,6 +25,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 
+
+	@Autowired
+	RestTemplate restTemplate;
+
 	@Override
 	public Employee save(Employee employee) {
 		
@@ -42,30 +46,62 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Employee fetchEmployee(Employee employee) {
-		Optional<Employee> optionalEmployee = employeeRepository.findById(employee.getId());
-		if(optionalEmployee.isPresent()) {
+//		Optional<Employee> optionalEmployee = employeeRepository.findById(employee.getId());
+//		if(optionalEmployee.isPresent()) {
+//
+//			//RestTemplate restTemplate=new RestTemplate();
+//			HttpHeaders httpHeaders=new HttpHeaders();
+//
+//			OAuth2AuthenticationDetails details=(OAuth2AuthenticationDetails)
+//					SecurityContextHolder.getContext().getAuthentication().getDetails();
+//
+//			httpHeaders.add("Authorization" ,"bearer".concat(details.getTokenValue()));
+//
+//			ResponseEntity<Allocation[]> responseEntity;
+//
+//			HttpEntity<String> entity=new HttpEntity<>("",httpHeaders);
+//
+//			responseEntity=restTemplate.exchange("http://allocation-service/emscloud/getAllocation/".
+//					concat(employee.getId().toString()), HttpMethod.GET,entity,Allocation[].class);
+//
+//			Employee employee1=optionalEmployee.get();
+//
+//			employee1.setAllocation(responseEntity.getBody());
+//			return employee1;
+//		}
+//		else {
+//			return null;
+//		}
 
-			RestTemplate restTemplate=new RestTemplate();
+
+
+
+		//////////
+
+		Optional<Employee> optionalEmployee = employeeRepository.findById(employee.getId());
+		if (optionalEmployee.isPresent()) {
+			// fetch project alllocation
+			//		RestTemplate restTemplate=new RestTemplate();
 			HttpHeaders httpHeaders=new HttpHeaders();
 
-			OAuth2AuthenticationDetails details=(OAuth2AuthenticationDetails)
+			//extract token from context
+			OAuth2AuthenticationDetails oAuth2AuthenticationDetails =(OAuth2AuthenticationDetails)
 					SecurityContextHolder.getContext().getAuthentication().getDetails();
 
-			httpHeaders.add("Authorization" ,"bearer".concat(details.getTokenValue()));
+			System.out.println(">>>>"+oAuth2AuthenticationDetails.getTokenValue());
+			httpHeaders.add("Authorization","bearer".concat(oAuth2AuthenticationDetails.getTokenValue()));
 
+			//
 			ResponseEntity<Allocation[]> responseEntity;
+			HttpEntity<String> httpEntity=new HttpEntity<>("",httpHeaders);
+			responseEntity=restTemplate.exchange("http://allocation-service/emscloud/getAllocation/".
+					concat(employee.getId().toString()),HttpMethod.GET,httpEntity, Allocation[].class);
 
-			HttpEntity<String> entity=new HttpEntity<>("",httpHeaders);
 
-			responseEntity=restTemplate.exchange("http://localhost:9090/emscloud/getAllocation/".
-					concat(employee.getId().toString()), HttpMethod.GET,entity,Allocation[].class);
-
-			Employee employee1=optionalEmployee.get();
-
+			Employee employee1= optionalEmployee.get();
 			employee1.setAllocation(responseEntity.getBody());
 			return employee1;
-		}
-		else {
+		}else {
 			return null;
 		}
 	}

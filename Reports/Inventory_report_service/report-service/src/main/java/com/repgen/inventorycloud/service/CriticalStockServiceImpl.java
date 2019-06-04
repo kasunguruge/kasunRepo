@@ -41,17 +41,52 @@ public class CriticalStockServiceImpl implements CriticalStockService{
 		 responseEntity=restTemplate.exchange("http://localhost:8080/item/"
 				 ,HttpMethod.GET,httpEntity, CriticalItem[].class);
 
+
+
 		//return responseEntity.getBody();
-		 responseEntity.getBody()[0].setQuentity(getQuantity()[0].getQuantity().intValue());
-				
+
+
+
+		 ////////////////////////////
+
+		ResponseEntity<CurrentStock[]> responseEntity1=null;
+		HttpEntity<String> httpEntity1=new HttpEntity<>("",httpHeaders);
+
+		for(int i=0;i<responseEntity.getBody().length;i++){
+			responseEntity1=restTemplate.exchange("http://localhost:8283/log/viewCurrentStock/"
+							.concat(responseEntity.getBody()[i].getBrand().getId()+"/"+responseEntity.getBody()[i].getId()
+									+"/"+responseEntity.getBody()[i].getuOm().getId())
+					,HttpMethod.GET,httpEntity1, CurrentStock[].class);
+
+			responseEntity.getBody()[0].setQuentity(responseEntity1.getBody()[0].getQuantity().intValue());
+
+		}
+
+
+		//////////////////////////////
 				// CriticalItem[] criticalItems = responseEntity.getBody();
-		String response = "response is " + responseEntity.getBody().toString();
+	//	String response = "response is " + responseEntity.getBody().toString();
 //		return response + "/n" + " Quentity is /n" + getQuantity().;
 		 //System.out.println(" xxxxxx "+getQuantity()[0].getDraftDetails().get(0).getQuantity() );
 		 
 		 return responseEntity.getBody();
 	}
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	////////////////////////////////////////////////////
 	
 	@Override
 	public CurrentStock[] getQuantity(){

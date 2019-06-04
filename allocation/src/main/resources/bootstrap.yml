@@ -1,3 +1,19 @@
+#spring:
+#  application:
+#    name: allocation-service
+#
+#eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#  instance:
+#    instance-id: ${spring.application.name}-${random.int}
+#    hostname: localhost
+#server:
+#  port: 0
+#
+
+
 spring:
   application:
     name: allocation-service
@@ -8,6 +24,6 @@ eureka:
     register-with-eureka: true
   instance:
     instance-id: ${spring.application.name}-${random.int}
-    hostname: localhost
+
 server:
   port: 0
