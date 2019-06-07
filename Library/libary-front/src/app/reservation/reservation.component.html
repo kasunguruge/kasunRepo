@@ -1,0 +1,24 @@
+<table>
+  <thead>
+  <th>Reservations</th>
+  
+  </thead>
+  <tbody>
+  <tr *ngFor="let reserves of reservation | async ">
+  <td>{{reserves.id}}</td>
+  <td>{{reserves.name}}</td>
+  <td>{{reserves.books[0].name}}</td>
+  <td><button (click)="deleteReservations(reserves.id)">Delete</button></td>
+  
+</tr>
+
+<tr *ngFor="let format of formatsDateTest">
+  <td>{{dateNowISO | date: format}}</td>
+  
+</tr>
+  </tbody>
+  </table>
+<!-- 
+  <div><input type="text" name="">
+    <button (click)="addReservations(reserves.id)">Add</button>
+  </div> -->

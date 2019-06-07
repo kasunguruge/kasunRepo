@@ -11,3 +11,10 @@ eureka:
     hostname: localhost
 server:
   port: 0
+
+
+
+
+  cloud:
+    config:
+      uri: http://localhost:8091

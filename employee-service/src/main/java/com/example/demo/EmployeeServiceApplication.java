@@ -8,8 +8,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication
-@EnableAuthorizationServer
+
 @EnableEurekaClient
+
+
 public class EmployeeServiceApplication {
 
 	public static void main(String[] args) {
